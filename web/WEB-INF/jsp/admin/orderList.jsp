@@ -6,9 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ include file="/WEB-INF/jsp/admin/adminHeader.jsp" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <h2>订单管理</h2>
 
 <table border="1" cellpadding="5" cellspacing="0">
@@ -41,5 +39,6 @@
         </tr>
     </c:forEach>
 </table>
-
 <%@ include file="/WEB-INF/jsp/admin/adminFooter.jsp" %>
+
+

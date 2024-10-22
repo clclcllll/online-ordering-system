@@ -17,11 +17,18 @@ public class LoginServlet extends HttpServlet {
 
     private UserService userService = new UserService();
 
+    //doget
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 转发到登录页面
+        request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 设置请求和响应的字符编码
-        request.setCharacterEncoding(Constants.CHARSET_UTF8);
-        response.setContentType(Constants.CONTENT_TYPE_JSON);
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 
         // 获取请求参数
         String username = request.getParameter("username");
@@ -40,7 +47,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             // 登录失败，返回错误信息
             request.setAttribute("errorMsg", "用户名或密码错误");
-            request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
         }
     }
 }

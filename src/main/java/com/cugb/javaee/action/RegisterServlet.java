@@ -19,10 +19,18 @@ public class RegisterServlet extends HttpServlet {
     private UserService userService = new UserService();
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 转发到注册页面
+        request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 设置请求和响应的字符编码
-        request.setCharacterEncoding(Constants.CHARSET_UTF8);
-        response.setContentType(Constants.CONTENT_TYPE_JSON);
+        // 设置请求和响应的字符编码
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+
 
         // 获取请求参数
         String username = request.getParameter("username");
@@ -51,7 +59,7 @@ public class RegisterServlet extends HttpServlet {
 
         if (result) {
             // 注册成功，重定向到登录页面
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
         } else {
             // 注册失败，返回错误信息
             request.setAttribute("errorMsg", "注册失败，用户名可能已存在");
