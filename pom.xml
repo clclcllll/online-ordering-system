@@ -7,6 +7,45 @@
     <groupId>org.example</groupId>
     <artifactId>online-ordering-system</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+
+        <!-- Gson 库 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.2.8</version> <!-- 可根据需要选择版本 -->
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version> <!-- Servlet 3.1 版本 -->
+            <scope>provided</scope>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.3.27</version> <!-- 可根据需要选择版本 -->
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+
+
+
+    </dependencies>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
