@@ -46,4 +46,16 @@ public class ValidationUtil {
     public static boolean isValidPassword(String password) {
         return password != null && password.length() >=6 && password.length() <= 20;
     }
+
+    public static boolean isValidDishName(String name) {
+        return name != null && name.length() >= 2 && name.length() <= 20;
+    }
+
+    public static boolean isValidPrice(String priceStr) {
+        return priceStr != null && priceStr.matches("^\\d+(\\.\\d{1,2})?$");
+    }
+
+    public static boolean isValidStock(String stockStr) {
+        return stockStr != null && stockStr.matches("^[1-9]\\d*$");
+    }
 }
