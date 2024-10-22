@@ -16,6 +16,7 @@ public class DBUtil {
 
     static {
         try {
+
             // 加载数据库配置文件
             Properties properties = new Properties();
             InputStream inputStream = DBUtil.class.getClassLoader().getResourceAsStream("db.properties");
