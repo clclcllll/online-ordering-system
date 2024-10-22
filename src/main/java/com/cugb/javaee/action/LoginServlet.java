@@ -1,8 +1,17 @@
 package com.cugb.javaee.action;
 
-public class LoginServlet {
-    public static void main(String[] args) {
-        System.out.println("hello");
-        System.out.println("hello2");
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO: Implement login logic
     }
 }
