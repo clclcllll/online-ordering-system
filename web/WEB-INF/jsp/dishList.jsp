@@ -10,6 +10,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <h2>菜品列表</h2>
 
+<!-- 判断是否有 successMsg 并弹出提示 -->
+<c:if test="${not empty successMsg}">
+    <script>
+        alert("${successMsg}");
+    </script>
+</c:if>
+
 <c:if test="${not empty dishes}">
     <div class="dish-list">
         <c:forEach var="dish" items="${dishes}">
@@ -20,7 +27,8 @@
                 <h3>${dish.name}</h3>
                 <p>价格：￥${dish.price}</p>
                 <p>${dish.description}</p>
-                <form action="${pageContext.request.contextPath}/cart?action=add" method="get">
+                <form action="${pageContext.request.contextPath}/cart" method="get">
+                    <input type="text" name="action" value="add" style="display: none;">
                     <input type="hidden" name="dishID" value="${dish.dishID}">
                     <input type="number" name="quantity" value="1" min="1" max="${dish.stock}">
                     <input type="submit" value="加入购物车">

@@ -75,12 +75,15 @@ public class CartServlet extends HttpServlet {
         // 添加到购物车
         boolean result = cartService.addToCart(cart, dishID, quantity);
         if (result) {
-            // 添加成功，重定向到购物车页面
-            response.sendRedirect(request.getContextPath() + "/cart?action=view");
+            // 添加成功，alert
+            request.setAttribute("successMsg", "添加到购物车成功");
+            // 转发到菜品列表页面
+            request.getRequestDispatcher("/dish?action=list").forward(request, response);
         } else {
             // 添加失败，返回错误信息
             request.setAttribute("errorMsg", "添加到购物车失败，库存不足");
-            request.getRequestDispatcher("/dish?action=detail&dishID=" + dishID).forward(request, response);
+            // 转发到菜品列表页面
+            request.getRequestDispatcher("/dish?action=list").forward(request, response);
         }
     }
 
