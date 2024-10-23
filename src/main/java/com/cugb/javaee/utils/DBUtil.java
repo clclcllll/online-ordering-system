@@ -3,9 +3,9 @@ package com.cugb.javaee.utils;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * 数据库工具类，使用 Druid 数据源和 JdbcTemplate
@@ -16,18 +16,12 @@ public class DBUtil {
 
     static {
         try {
-
-            // 加载数据库配置文件
-            Properties properties = new Properties();
-            InputStream inputStream = DBUtil.class.getClassLoader().getResourceAsStream("db.properties");
-            properties.load(inputStream);
-
-            // 创建 Druid 数据源
+            // 初始化 Druid 数据源
             dataSource = new DruidDataSource();
-            dataSource.setDriverClassName(properties.getProperty("jdbc.driverClassName"));
-            dataSource.setUrl(properties.getProperty("jdbc.url"));
-            dataSource.setUsername(properties.getProperty("jdbc.username"));
-            dataSource.setPassword(properties.getProperty("jdbc.password"));
+            dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+            dataSource.setUrl("jdbc:mysql://rm-cn-t8j3yxq06000eilo.rwlb.rds.aliyuncs.com/ordering_system");
+            dataSource.setUsername("txyyt01");
+            dataSource.setPassword("Qazwsx123098");
 
             // 配置连接池参数（可根据需要调整）
             dataSource.setInitialSize(5);
@@ -36,8 +30,7 @@ public class DBUtil {
 
             // 创建 JdbcTemplate 对象
             jdbcTemplate = new JdbcTemplate(dataSource);
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -48,5 +41,28 @@ public class DBUtil {
      */
     public static JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
+    }
+
+    /**
+     * 获取数据库连接
+     * @return Connection
+     * @throws SQLException 如果获取连接失败
+     */
+    public static Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
+
+    /**
+     * 关闭数据库连接
+     * @param conn 数据库连接对象
+     */
+    public static void closeConnection(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
