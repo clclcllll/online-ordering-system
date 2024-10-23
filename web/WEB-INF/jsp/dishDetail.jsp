@@ -17,7 +17,8 @@
         <p>价格：￥${dish.price}</p>
         <p>库存：${dish.stock}</p>
         <p>${dish.description}</p>
-        <form action="${pageContext.request.contextPath}/cart?action=add" method="get">
+        <form action="${pageContext.request.contextPath}/cart" method="get">
+            <input type="text" name="action" value="add" style="display: none;">
             <input type="hidden" name="dishID" value="${dish.dishID}">
             <input type="number" name="quantity" value="1" min="1" max="${dish.stock}">
             <input type="submit" value="加入购物车">

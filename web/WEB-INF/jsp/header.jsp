@@ -15,7 +15,7 @@
     <c:choose>
         <c:when test="${not empty sessionScope.user}">
             <span>欢迎，${sessionScope.user.username}</span> |
-            <a href="${pageContext.request.contextPath}/logout">退出登录</a>
+            <a href="${pageContext.request.contextPath}/login">退出登录</a>
         </c:when>
         <c:otherwise>
             <a href="${pageContext.request.contextPath}/login">登录</a> |
