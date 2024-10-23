@@ -43,11 +43,11 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute(Constants.SESSION_USER, user);
 
             // 重定向到首页
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
         } else {
             // 登录失败，返回错误信息
             request.setAttribute("errorMsg", "用户名或密码错误");
-            request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
         }
     }
 }

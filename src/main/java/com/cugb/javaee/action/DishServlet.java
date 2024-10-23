@@ -36,6 +36,10 @@ public class DishServlet extends HttpServlet {
                 // 展示菜品详情
                 showDishDetail(request, response);
                 break;
+            case "index":
+                // 展示首页
+                request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+                break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }

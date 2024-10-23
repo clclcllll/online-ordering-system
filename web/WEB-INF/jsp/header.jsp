@@ -9,7 +9,7 @@
 </head>
 <body>
 <nav class="navbar">
-    <a href="${pageContext.request.contextPath}/dish?action=list">首页</a> |
+    <a href="${pageContext.request.contextPath}/dish?action=index">首页</a> |
     <a href="${pageContext.request.contextPath}/dish?action=list">菜品列表</a> |
     <a href="${pageContext.request.contextPath}/cart?action=view">购物车</a> |
     <c:choose>
