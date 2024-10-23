@@ -7,8 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <hr>
-<footer>
-    <p>&copy; 2023 网上订餐系统</p>
+<footer class="footer">
+    <p>&copy; 2024 网上订餐系统. All rights reserved.</p>
 </footer>
 <!-- 引入 JavaScript -->
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
