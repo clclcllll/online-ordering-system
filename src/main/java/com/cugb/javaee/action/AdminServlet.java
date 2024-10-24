@@ -37,6 +37,7 @@ public class AdminServlet extends HttpServlet {
 
         switch (action) {
             case "login":
+
                 // 管理员登录页面
                 request.getRequestDispatcher("/WEB-INF/jsp/admin/adminLogin.jsp").forward(request, response);
                 break;
@@ -70,7 +71,7 @@ public class AdminServlet extends HttpServlet {
                 break;
             case "addDish":
                 // 添加菜品页面
-                request.getRequestDispatcher("/WEB-INF/jsp/admin/addDish.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/jsp/admin/changeDish.jsp").forward(request, response);
                 break;
             case "editDish":
                 // 编辑菜品页面
@@ -168,7 +169,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void adminIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -181,7 +182,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void userList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -200,7 +201,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -224,7 +225,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void setAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -248,7 +249,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void removeAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -272,7 +273,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void dishList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -283,7 +284,7 @@ public class AdminServlet extends HttpServlet {
         request.setAttribute("dishes", dishes);
 
         // 转发到菜品列表页面
-        request.getRequestDispatcher("/WEB-INF/jsp/admin/dishList.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/admin/admindishList.jsp").forward(request, response);
     }
 
     /**
@@ -314,7 +315,7 @@ public class AdminServlet extends HttpServlet {
         request.setAttribute("dish", dish);
 
         // 转发到编辑菜品页面（可以复用添加菜品的页面）
-        request.getRequestDispatcher("/WEB-INF/jsp/admin/addDish.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/admin/changeDish.jsp").forward(request, response);
     }
 
     /**
@@ -334,12 +335,18 @@ public class AdminServlet extends HttpServlet {
         String priceStr = request.getParameter("price");
         String description = request.getParameter("description");
         String stockStr = request.getParameter("stock");
-        Part imagePart = request.getPart("image"); // 获取上传的图片文件
+
+        System.out.println("name:"+name+"price:"+priceStr+"stock:"+stockStr);
+
+        //Part imagePart = request.getPart("image"); // 获取上传的图片文件
 
         // 参数校验
         if (!ValidationUtil.isValidDishName(name) || !ValidationUtil.isValidPrice(priceStr) || !ValidationUtil.isValidStock(stockStr)) {
-            request.setAttribute("errorMsg", "输入的信息格式不正确");
-            request.getRequestDispatcher("/WEB-INF/jsp/admin/addDish.jsp").forward(request, response);
+            // 操作失败，设置错误消息并重定向到菜品列表
+            HttpSession session = request.getSession();
+
+            session.setAttribute("errorMsg", "保存菜品失败,填入格式错误"+priceStr);
+            response.sendRedirect(request.getContextPath() + "/admin?action=dishList");
             return;
         }
 
@@ -347,20 +354,20 @@ public class AdminServlet extends HttpServlet {
         int stock = Integer.parseInt(stockStr);
 
         // 处理图片上传
-        String imageFileName = null;
-        if (imagePart != null && imagePart.getSize() > 0) {
-            // 获取上传的文件名
-            String submittedFileName = imagePart.getSubmittedFileName();
-            // 生成新的文件名，避免重复
-            imageFileName = System.currentTimeMillis() + "_" + submittedFileName;
-            // 保存文件到服务器指定目录
-            String imagePath = getServletContext().getRealPath("/images/dishes");
-            File imageDir = new File(imagePath);
-            if (!imageDir.exists()) {
-                imageDir.mkdirs();
-            }
-            imagePart.write(imagePath + File.separator + imageFileName);
-        }
+//        String imageFileName = null;
+//        if (imagePart != null && imagePart.getSize() > 0) {
+//            // 获取上传的文件名
+//            String submittedFileName = imagePart.getSubmittedFileName();
+//            // 生成新的文件名，避免重复
+//            imageFileName = System.currentTimeMillis() + "_" + submittedFileName;
+//            // 保存文件到服务器指定目录
+//            String imagePath = getServletContext().getRealPath("/images/dishes");
+//            File imageDir = new File(imagePath);
+//            if (!imageDir.exists()) {
+//                imageDir.mkdirs();
+//            }
+//            imagePart.write(imagePath + File.separator + imageFileName);
+//        }
 
         // 创建或更新菜品对象
         DishBean dish = new DishBean();
@@ -368,9 +375,9 @@ public class AdminServlet extends HttpServlet {
         dish.setPrice(price);
         dish.setDescription(description);
         dish.setStock(stock);
-        if (imageFileName != null) {
-            dish.setImage("dishes/" + imageFileName);
-        }
+//        if (imageFileName != null) {
+//            dish.setImage("dishes/" + imageFileName);
+//        }
 
         boolean result;
         if (dishIDStr == null || dishIDStr.isEmpty()) {
@@ -380,22 +387,28 @@ public class AdminServlet extends HttpServlet {
             // 更新已有菜品
             int dishID = Integer.parseInt(dishIDStr);
             dish.setDishID(dishID);
-            if (imageFileName == null) {
-                // 如果没有上传新的图片，保留原来的图片
-                DishBean existingDish = dishService.getDishByID(dishID);
-                if (existingDish != null) {
-                    dish.setImage(existingDish.getImage());
-                }
+            //if (imageFileName == null) {
+
+            // 如果没有上传新的图片，保留原来的图片
+            DishBean existingDish = dishService.getDishByID(dishID);
+            if (existingDish != null) {
+                dish.setImage(existingDish.getImage());
             }
+
+            //}
             result = dishService.updateDish(dish);
         }
 
         if (result) {
-            // 操作成功，重定向到菜品列表
+            // 操作成功，设置成功消息并重定向到菜品列表
+            HttpSession session = request.getSession();
+            session.setAttribute("successMsg", "菜品更新成功");
             response.sendRedirect(request.getContextPath() + "/admin?action=dishList");
         } else {
-            request.setAttribute("errorMsg", "保存菜品失败");
-            request.getRequestDispatcher("/WEB-INF/jsp/admin/addDish.jsp").forward(request, response);
+            // 操作失败，设置错误消息并重定向到菜品列表
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMsg", "保存菜品失败");
+            response.sendRedirect(request.getContextPath() + "/admin?action=dishList");
         }
     }
 
@@ -404,7 +417,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void deleteDish(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -428,7 +441,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void orderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -439,7 +452,7 @@ public class AdminServlet extends HttpServlet {
         request.setAttribute("orders", orders);
 
         // 转发到订单列表页面
-        request.getRequestDispatcher("/WEB-INF/jsp/admin/orderList.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/admin/adminorderList.jsp").forward(request, response);
     }
 
     /**
@@ -447,7 +460,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void viewOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -470,7 +483,7 @@ public class AdminServlet extends HttpServlet {
         request.setAttribute("order", order);
 
         // 转发到订单详情页面
-        request.getRequestDispatcher("/WEB-INF/jsp/admin/orderDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/admin/adminorderDetail.jsp").forward(request, response);
     }
 
     /**
@@ -478,7 +491,7 @@ public class AdminServlet extends HttpServlet {
      */
     private void deleteOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 检查是否是管理员
-        if (!checkAdmin(request, response)) {
+                if (!checkAdmin(request, response)) {
             return;
         }
 

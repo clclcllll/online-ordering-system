@@ -158,7 +158,7 @@ public class OrderServlet extends HttpServlet {
         request.setAttribute("orders", orders);
 
         // 转发到订单列表页面
-        request.getRequestDispatcher("/WEB-INF/jsp/order.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/orderList.jsp").forward(request, response);
     }
 
     /**
@@ -192,6 +192,6 @@ public class OrderServlet extends HttpServlet {
         request.setAttribute("order", order);
 
         // 转发到订单详情页面
-        request.getRequestDispatcher("/WEB-INF/jsp/orderDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/adminorderDetail.jsp").forward(request, response);
     }
 }
