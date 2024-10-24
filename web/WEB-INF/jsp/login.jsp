@@ -1,94 +1,94 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>用户登录</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('${pageContext.request.contextPath}/images/background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative; /* 确保 body 是相对定位 */
-        }
+<style>
 
-        .content {
-            flex-grow: 1; /* 占据剩余空间 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* 至少占据视口的高度 */
+        margin: 0; /* 移除默认的边距 */
+    }
+    .navbar {
+        color: #ffffff;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        background: rgb(78, 171, 255);
+        height: 7vh;
+    }
 
-        .login-container {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
+    .name{
+        font-size: 30px;
+        fontfamily: STSong;
+        padding-right: 3vw
+    }
 
-        .login-container h2 {
-            margin-bottom: 20px;
-        }
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .login-container .alert {
-            margin-bottom: 20px;
-        }
+    .login-container {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+    }
 
-        .login-container table {
-            margin: 0 auto;
-        }
+    .login-container h2 {
+        margin-bottom: 20px;
+    }
 
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .login-container .alert {
+        margin-bottom: 20px;
+    }
 
-        .login-container input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .login-container table {
+        margin: 0 auto;
+    }
 
-        .login-container input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
-        .login-container a {
-            display: block;
-            margin-top: 10px;
-            text-decoration: none;
-            color: #007BFF;
-        }
+    .login-container input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-        .footer {
-            color: #ffffff;
-            background: rgb(78, 171, 255);
-            display: flex;
-            justify-content: center; /* 水平居中 */
-            align-items: center;     /* 垂直居中 */
-            height: 60px;            /* 固定高度，可以根据需要调整 */
-        }
-    </style>
-</head>
-<body>
+    .login-container input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .login-container a {
+        display: block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #007BFF;
+    }
+
+</style>
+
+<div class="navbar" style="display: flex;">
+    <div class="name">网上订餐系统</div>
+</div>
+
 <div class="content">
     <div class="login-container">
         <h2>用户登录</h2>
@@ -117,12 +117,5 @@
         </form>
     </div>
 </div>
-<footer class="footer">
-    <p>&copy; 2024 网上订餐系统. All rights reserved.</p>
-</footer>
-<!-- 引入 JavaScript -->
-<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/script.js"></script>
-</body>
-</html>
+
+<%@ include file="footer.jsp" %>
