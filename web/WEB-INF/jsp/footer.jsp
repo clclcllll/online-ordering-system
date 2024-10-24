@@ -7,13 +7,22 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style>
-    .footer{
-        color: #e1e1e1;
-        background: rgba(43, 45, 48, 0.94);
+    .content {
+        flex-grow: 1; /* 占据剩余空间 */
+    }
+
+    .footer {
+        color: #ffffff;
+        background: rgb(78, 171, 255);
         display: flex;
         justify-content: center; /* 水平居中 */
+        align-items: center;     /* 垂直居中 */
+        height: 60px;            /* 固定高度，可以根据需要调整 */
     }
 </style>
+
+
+<div class="content"></div>
 <footer class="footer">
     <p style="">&copy; 2024 网上订餐系统. All rights reserved.</p>
 </footer>

@@ -7,15 +7,17 @@
 </head>
 <style>
     body {
-        margin: 0;
-        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* 至少占据视口的高度 */
+        margin: 0; /* 移除默认的边距 */
     }
     .navbar {
-        color: #e1e1e1;
+        color: #ffffff;
         justify-content: center;
         align-items: center;
         display: flex;
-        background: rgba(43, 45, 48, 0.94);
+        background: rgb(78, 171, 255);
         height: 7vh;
     }
 
@@ -24,7 +26,7 @@
         margin-left: 10px;
         width: 80px;
         font-size: 18px;
-        color: #e1e1e1;
+        color: #ffffff;
         font-family: inherit;
         font-weight: 800;
         cursor: pointer;
@@ -43,7 +45,7 @@
 
     .navbar a:focus,
     .navbar a:hover {
-        color: #fff;
+        color: #ffffff;
     }
 
     .navbar a:focus:after,
@@ -60,10 +62,16 @@
         position: absolute;
         width: 0%;
         height: 2px;
-        background-color: #fff;
+        background-color: #ffffff;
         transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
         transition-duration: 400ms;
         transition-property: width, left;
+    }
+
+    .name{
+        font-size: 30px;
+        fontfamily: STSong;
+        padding-right: 3vw
     }
 
 
@@ -71,8 +79,8 @@
 </style>
 <body>
 <div class="navbar" style="display: flex;">
-    <div style="padding-right: 1vw">网上订餐系统</div>
-    <span style="padding-right: 1vw">欢迎，${sessionScope.user.username}</span>
+    <div class="name">网上订餐系统</div>
+    <span style="padding-right: 0.5vw">欢迎，${sessionScope.user.username}</span>
     <a href="${pageContext.request.contextPath}/dish?action=index">首页</a> |
     <a href="${pageContext.request.contextPath}/dish?action=list">菜品列表</a> |
     <a href="${pageContext.request.contextPath}/cart?action=view">购物车</a> |
