@@ -169,7 +169,7 @@ public class OrderServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserBean user = (UserBean) session.getAttribute(Constants.SESSION_USER);
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            response.sendRedirect(request.getContextPath() + "index.jsp");
             return;
         }
 
@@ -191,7 +191,8 @@ public class OrderServlet extends HttpServlet {
         // 设置请求属性
         request.setAttribute("order", order);
 
+
         // 转发到订单详情页面
-        request.getRequestDispatcher("/WEB-INF/jsp/adminorderDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/orderDetail.jsp").forward(request, response);
     }
 }
