@@ -11,6 +11,23 @@
 
 <h2>菜品管理</h2>
 
+<!-- 显示更新成功的提示 -->
+<c:if test="${not empty sessionScope.successMsg}">
+    <script type="text/javascript">
+        alert("${sessionScope.successMsg}");
+    </script>
+    <c:remove var="successMsg" scope="session"/>
+</c:if>
+<!-- 显示错误提示 -->
+<c:if test="${not empty sessionScope.errorMsg}">
+    <script type="text/javascript">
+        alert("${errorMsg}");
+    </script>
+    <c:remove var="errorMsg" scope="session"/>
+</c:if>
+
+
+
 <table border="1" cellpadding="5" cellspacing="0">
     <tr>
         <th>菜品ID</th>

@@ -64,6 +64,8 @@ public class DishServlet extends HttpServlet {
         request.setAttribute("currentPage", pageNum);
         request.setAttribute("totalPage", totalPage);
 
+        //
+
         // 转发到菜品列表页面
         request.getRequestDispatcher("/WEB-INF/jsp/dishList.jsp").forward(request, response);
     }

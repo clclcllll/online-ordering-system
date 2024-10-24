@@ -1,14 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: zhangsir
-  Date: 2024/10/22
-  Time: 14:35
+  Date: 2024/10/24
+  Time: 13:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="header.jsp" %>
+<%@ include file="/WEB-INF/jsp/admin/adminHeader.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<h2>订单确认</h2>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<h2>订单详情</h2>
 
 <c:if test="${not empty order}">
     <p>订单号：${order.orderID}</p>
@@ -20,6 +22,7 @@
         <c:when test="${order.orderStatus == 2}">已完成</c:when>
         <c:when test="${order.orderStatus == 3}">已取消</c:when>
     </c:choose></p>
+
     <h3>订单明细：</h3>
     <table border="1" cellpadding="5" cellspacing="0">
         <tr>
@@ -37,7 +40,14 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="${pageContext.request.contextPath}/order?action=pay&orderID=${order.orderID}">去支付</a>
+
+    <hr />
+    <a href="${pageContext.request.contextPath}/admin?action=orderList">返回订单列表</a>
 </c:if>
-<%@ include file="footer.jsp" %>
+
+<c:if test="${empty order}">
+    <p>未找到该订单的详细信息。</p>
+</c:if>
+
+<%@ include file="/WEB-INF/jsp/admin/adminFooter.jsp" %>
 
