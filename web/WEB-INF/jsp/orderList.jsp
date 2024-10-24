@@ -1,14 +1,73 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zhangsir
-  Date: 2024/10/22
-  Time: 14:35
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .order-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .order-item {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 300px;
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .order-item h3 {
+        margin-top: 0;
+    }
+
+    .order-item p {
+        margin: 5px 0;
+    }
+
+    .order-item a {
+        display: inline-block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #007BFF;
+        font-weight: bold;
+    }
+
+    .order-item a:hover {
+        text-decoration: underline;
+    }
+
+    .order-item hr {
+        border: 0;
+        border-top: 1px solid #eee;
+        margin: 10px 0;
+    }
+
+    .no-orders {
+        text-align: center;
+        margin: 50px;
+        font-size: 18px;
+        color: #777;
+    }
+</style>
 
 <h2>我的订单列表</h2>
 
@@ -28,24 +87,6 @@
                     </c:choose>
                 </p>
 
-<%--                <h4>订单明细：</h4>--%>
-<%--                <table border="1" cellpadding="5" cellspacing="0">--%>
-<%--                    <tr>--%>
-<%--                        <th>菜品名称</th>--%>
-<%--                        <th>价格</th>--%>
-<%--                        <th>数量</th>--%>
-<%--                        <th>小计</th>--%>
-<%--                    </tr>--%>
-<%--                    <c:forEach var="item" items="${order.orderItems}">--%>
-<%--                        <tr>--%>
-<%--                            <td>${item.dish.name}</td>--%>
-<%--                            <td>￥${item.dish.price}</td>--%>
-<%--                            <td>${item.quantity}</td>--%>
-<%--                            <td>￥${item.subtotal}</td>--%>
-<%--                        </tr>--%>
-<%--                    </c:forEach>--%>
-<%--                </table>--%>
-
                 <!-- 查看详细链接 -->
                 <a href="${pageContext.request.contextPath}/order?action=detail&orderID=${order.orderID}">查看详细</a>
 
@@ -60,9 +101,7 @@
 </c:if>
 
 <c:if test="${empty orders}">
-    <p>您目前没有任何订单。</p>
+    <p class="no-orders">您目前没有任何订单。</p>
 </c:if>
 
 <%@ include file="footer.jsp" %>
-
-
