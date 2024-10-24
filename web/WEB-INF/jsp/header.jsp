@@ -12,6 +12,7 @@
     <a href="${pageContext.request.contextPath}/dish?action=index">首页</a> |
     <a href="${pageContext.request.contextPath}/dish?action=list">菜品列表</a> |
     <a href="${pageContext.request.contextPath}/cart?action=view">购物车</a> |
+    <a href="${pageContext.request.contextPath}/order?action=list">我的订单</a> |
     <c:choose>
         <c:when test="${not empty sessionScope.user}">
             <span>欢迎，${sessionScope.user.username}</span> |

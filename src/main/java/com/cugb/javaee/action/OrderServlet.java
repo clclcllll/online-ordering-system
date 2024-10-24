@@ -94,6 +94,7 @@ public class OrderServlet extends HttpServlet {
             cart.clear();
             // 重定向到支付页面
             response.sendRedirect(request.getContextPath() + "/order?action=pay&orderID=" + orderID);
+
         } else {
             request.setAttribute("errorMsg", "下单失败");
             request.getRequestDispatcher("/cart?action=view").forward(request, response);
@@ -157,7 +158,7 @@ public class OrderServlet extends HttpServlet {
         request.setAttribute("orders", orders);
 
         // 转发到订单列表页面
-        request.getRequestDispatcher("/WEB-INF/jsp/orderList.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/order.jsp").forward(request, response);
     }
 
     /**
