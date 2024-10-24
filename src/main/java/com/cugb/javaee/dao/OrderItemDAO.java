@@ -1,5 +1,6 @@
 package com.cugb.javaee.dao;
 
+import com.cugb.javaee.bean.DishBean;
 import com.cugb.javaee.bean.OrderItemBean;
 import com.cugb.javaee.utils.DBUtil;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -50,8 +51,30 @@ public class OrderItemDAO {
      * @return 订单明细列表
      */
     public List<OrderItemBean> getOrderItemsByOrderId(int orderID) {
-        String sql = "SELECT * FROM OrderItem WHERE OrderID = ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OrderItemBean.class), orderID);
+        // SQL 查询，联表查询订单明细和菜品
+        String sql = "SELECT oi.*, d.DishID, d.Name, d.Price FROM OrderItem oi " +
+                "JOIN Dish d ON oi.DishID = d.DishID WHERE oi.OrderID = ?";
+
+        // 查询订单明细，同时获取每个订单项关联的 Dish 信息
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            OrderItemBean orderItem = new OrderItemBean();
+
+            // 设置订单项的基础信息
+            orderItem.setOrderItemID(rs.getInt("OrderItemID"));
+            orderItem.setOrderID(rs.getInt("OrderID"));
+            orderItem.setQuantity(rs.getInt("Quantity"));
+            orderItem.setSubtotal(rs.getDouble("Subtotal"));
+
+            // 设置关联的菜品信息
+            DishBean dish = new DishBean();
+            dish.setDishID(rs.getInt("DishID"));
+            dish.setName(rs.getString("Name"));
+            dish.setPrice(rs.getDouble("Price"));
+
+            orderItem.setDish(dish);  // 将菜品对象关联到订单项
+
+            return orderItem;
+        }, orderID);
     }
 
     /**

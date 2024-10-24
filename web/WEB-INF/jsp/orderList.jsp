@@ -28,23 +28,26 @@
                     </c:choose>
                 </p>
 
-                <h4>订单明细：</h4>
-                <table border="1" cellpadding="5" cellspacing="0">
-                    <tr>
-                        <th>菜品名称</th>
-                        <th>价格</th>
-                        <th>数量</th>
-                        <th>小计</th>
-                    </tr>
-                    <c:forEach var="item" items="${order.orderItems}">
-                        <tr>
-                            <td>${item.dish.name}</td>
-                            <td>￥${item.dish.price}</td>
-                            <td>${item.quantity}</td>
-                            <td>￥${item.subtotal}</td>
-                        </tr>
-                    </c:forEach>
-                </table>
+<%--                <h4>订单明细：</h4>--%>
+<%--                <table border="1" cellpadding="5" cellspacing="0">--%>
+<%--                    <tr>--%>
+<%--                        <th>菜品名称</th>--%>
+<%--                        <th>价格</th>--%>
+<%--                        <th>数量</th>--%>
+<%--                        <th>小计</th>--%>
+<%--                    </tr>--%>
+<%--                    <c:forEach var="item" items="${order.orderItems}">--%>
+<%--                        <tr>--%>
+<%--                            <td>${item.dish.name}</td>--%>
+<%--                            <td>￥${item.dish.price}</td>--%>
+<%--                            <td>${item.quantity}</td>--%>
+<%--                            <td>￥${item.subtotal}</td>--%>
+<%--                        </tr>--%>
+<%--                    </c:forEach>--%>
+<%--                </table>--%>
+
+                <!-- 查看详细链接 -->
+                <a href="${pageContext.request.contextPath}/order?action=detail&orderID=${order.orderID}">查看详细</a>
 
                 <c:if test="${order.orderStatus == 0}">
                     <a href="${pageContext.request.contextPath}/order?action=pay&orderID=${order.orderID}">去支付</a>

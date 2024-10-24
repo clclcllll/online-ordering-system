@@ -19,13 +19,15 @@ public class OrderItemBean implements Serializable {
     }
 
     // 全参构造方法
-    public OrderItemBean(int orderItemID, int orderID, int dishID, int quantity, double subtotal) {
+    public OrderItemBean(int orderItemID, int orderID, int dishID, int quantity, double subtotal, DishBean dish) {
         this.orderItemID = orderItemID;
         this.orderID = orderID;
         this.dishID = dishID;
         this.quantity = quantity;
         this.subtotal = subtotal;
+        this.dish = dish;
     }
+
 
     // Getter 和 Setter 方法
     public int getOrderItemID() {
