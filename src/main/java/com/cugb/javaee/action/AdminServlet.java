@@ -199,9 +199,9 @@ public class AdminServlet extends HttpServlet {
     /**
      * 删除用户
      */
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // 检查是否是管理员
-                if (!checkAdmin(request, response)) {
+        if (!checkAdmin(request, response)) {
             return;
         }
 
@@ -215,9 +215,10 @@ public class AdminServlet extends HttpServlet {
 
         // 调用业务逻辑层删除用户
         adminService.deleteUser(userID);
+        //提示删除成功
+        request.setAttribute("successMsg", "删除成功");
+        request.getRequestDispatcher("/admin?action=userList").forward(request, response);
 
-        // 重定向到用户列表
-        response.sendRedirect(request.getContextPath() + "/admin?action=userList");
     }
 
     /**

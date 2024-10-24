@@ -42,14 +42,30 @@ public class AdminDAO {
     }
 
     /**
-     * 根据用户 ID 删除用户
+     * 根据用户 ID 删除用户及其相关的订单和订单项
      * @param userID 用户 ID
      * @return 操作结果，成功返回 1，失败返回 0
      */
     public int deleteUser(int userID) {
-        String sql = "DELETE FROM User WHERE UserID = ?";
-        return jdbcTemplate.update(sql, userID);
+        // 先查找与该用户相关的所有订单ID
+        String findOrdersSql = "SELECT OrderID FROM `Order` WHERE UserID = ?";
+        List<Integer> orderIDs = jdbcTemplate.queryForList(findOrdersSql, Integer.class, userID);
+
+        // 删除与这些订单相关的所有订单项
+        String deleteOrderItemsSql = "DELETE FROM OrderItem WHERE OrderID = ?";
+        for (Integer orderID : orderIDs) {
+            jdbcTemplate.update(deleteOrderItemsSql, orderID);
+        }
+
+        // 删除订单
+        String deleteOrdersSql = "DELETE FROM `Order` WHERE UserID = ?";
+        jdbcTemplate.update(deleteOrdersSql, userID);
+
+        // 最后删除用户
+        String deleteUserSql = "DELETE FROM User WHERE UserID = ?";
+        return jdbcTemplate.update(deleteUserSql, userID);
     }
+
 
     /**
      * 更新用户类型（设置为管理员或普通用户）

@@ -3,57 +3,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <style>
+
     body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background: url('${pageContext.request.contextPath}/images/background.jpg') no-repeat center center fixed;
-        background-size: cover;
-        height: 100vh;
         display: flex;
         flex-direction: column;
-        position: relative; /* 确保 body 是相对定位 */
+        min-height: 100vh; /* 至少占据视口的高度 */
+        margin: 0; /* 移除默认的边距 */
     }
-
     .navbar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 10px;
-        text-align: center;
-        z-index: 1000; /* 确保导航栏在背景图片之上 */
+        color: #ffffff;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        background: rgb(78, 171, 255);
+        height: 7vh;
     }
 
-    .navbar a, .navbar span {
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 0 5px;
-        background: #007BFF;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .navbar a:hover, .navbar span:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .navbar a:active, .navbar span:active {
-        transform: translateY(2px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    hr {
-        margin: 10px 0;
+    .name{
+        font-size: 30px;
+        fontfamily: STSong;
+        padding-right: 3vw
     }
 
     .content {
-        flex: 1;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -111,22 +83,11 @@
         color: #007BFF;
     }
 
-    .footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 10px;
-        text-align: center; /* 确保文本居中 */
-        z-index: 1000; /* 确保脚注在背景图片之上 */
-        color: #333; /* 深灰色文字 */
-    }
-
-    .footer p {
-        margin: 0; /* 移除默认的段落间距 */
-    }
 </style>
+
+<div class="navbar" style="display: flex;">
+    <div class="name">网上订餐系统</div>
+</div>
 
 <div class="content">
     <div class="login-container">

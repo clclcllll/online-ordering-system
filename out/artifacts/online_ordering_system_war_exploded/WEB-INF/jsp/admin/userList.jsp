@@ -10,6 +10,13 @@
 <%@ include file="/WEB-INF/jsp/admin/adminHeader.jsp" %>
 <h2>用户管理</h2>
 
+<%--删除成功提示--%>
+<c:if test="${not empty successMsg}">
+    <script>
+        alert("${successMsg}");
+    </script>
+</c:if>
+
 <table border="1" cellpadding="5" cellspacing="0">
     <tr>
         <th>用户ID</th>
