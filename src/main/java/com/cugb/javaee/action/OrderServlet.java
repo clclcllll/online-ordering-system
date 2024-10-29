@@ -2,6 +2,7 @@ package com.cugb.javaee.action;
 
 import com.cugb.javaee.bean.*;
 import com.cugb.javaee.biz.OrderService;
+import com.cugb.javaee.utils.AlipayPaymentUtil;
 import com.cugb.javaee.utils.Constants;
 
 import javax.servlet.ServletException;
@@ -33,7 +34,7 @@ public class OrderServlet extends HttpServlet {
                 createOrder(request, response);
                 break;
             case "pay":
-                // 模拟支付
+                // 支付订单
                 payOrder(request, response);
                 break;
             case "list":
@@ -102,7 +103,7 @@ public class OrderServlet extends HttpServlet {
     }
 
     /**
-     * 模拟支付
+     * 支付订单
      */
     private void payOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 检查用户是否已登录
@@ -128,16 +129,38 @@ public class OrderServlet extends HttpServlet {
             return;
         }
 
-        // 模拟支付，更新订单状态为已支付
+        // 使用支付宝工具类进行支付
+        AlipayPaymentUtil.processPayment("ORDER" + orderID, String.valueOf(order.getTotalAmount()), "购物车订单", response);
+        // 不会真付，模拟付款成功
         boolean result = orderService.updateOrderStatus(orderID, Constants.ORDER_STATUS_PAID); // 已支付
         if (result) {
             // 支付成功，重定向到订单列表
-            response.sendRedirect(request.getContextPath() + "/order?action=list");
+            // response.sendRedirect(request.getContextPath() + "/order?action=list");
         } else {
             request.setAttribute("errorMsg", "支付失败");
             request.getRequestDispatcher("/order?action=detail&orderID=" + orderID).forward(request, response);
         }
     }
+
+
+    //确认是否支付成功，使用支付宝异步通知，使用前去支付宝设置一下notify_url
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 支付宝异步通知处理
+        String tradeStatus = request.getParameter("trade_status");
+        String outTradeNo = request.getParameter("out_trade_no");
+
+        if ("TRADE_SUCCESS".equals(tradeStatus) || "TRADE_FINISHED".equals(tradeStatus)) {
+            // 提取订单ID
+            int orderID = Integer.parseInt(outTradeNo.replace("ORDER", ""));
+            // 更新订单状态为已支付
+            orderService.updateOrderStatus(orderID, Constants.ORDER_STATUS_PAID);
+            response.getWriter().write("success");
+        } else {
+            response.getWriter().write("fail");
+        }
+    }
+
 
     /**
      * 查看订单列表
@@ -190,7 +213,6 @@ public class OrderServlet extends HttpServlet {
 
         // 设置请求属性
         request.setAttribute("order", order);
-
 
         // 转发到订单详情页面
         request.getRequestDispatcher("/WEB-INF/jsp/orderDetail.jsp").forward(request, response);
