@@ -23,7 +23,6 @@
     .name {
         font-size: 30px;
         font-family: "华文中宋", STSong;
-        padding-right: 3vw;
     }
 
     .content {
