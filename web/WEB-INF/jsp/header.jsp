@@ -70,7 +70,7 @@
 
     .name{
         font-size: 30px;
-        fontfamily: STSong;
+        font-family: "华文中宋", STSong;
         padding-right: 3vw
     }
 
