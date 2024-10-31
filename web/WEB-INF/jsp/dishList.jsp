@@ -29,15 +29,17 @@
     .dish-item {
         flex: 1 1 250px; /* 每个 item 最小宽度为 250px */
         background: rgba(255, 255, 255, 0.8);
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+
+        /*边框*/
+        border: 1px solid #e8e8e8;
         overflow: hidden;
         transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .dish-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     }
     .dish-item img {
         width: 100%;
@@ -69,7 +71,7 @@
 
     .dish-item input[type="submit"] {
         padding: 10px 20px;
-        background: #007BFF;
+        background: #000000;
         color: white;
         border: none;
         border-radius: 5px;
@@ -79,7 +81,7 @@
     }
 
     .dish-item input[type="submit"]:hover {
-        background: #0056b3;
+        background: #535353;
     }
 
     .pagination {
@@ -91,7 +93,7 @@
         display: inline-block;
         padding: 10px 20px;
         margin: 0 5px;
-        background: #007BFF;
+        background: #000000;
         color: white;
         text-decoration: none;
         border-radius: 5px;
@@ -100,8 +102,8 @@
     }
 
     .pagination a:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        background: #535353;
+
     }
 
     .pagination span {

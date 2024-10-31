@@ -3,17 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background: url('${pageContext.request.contextPath}/images/background.jpg') no-repeat center center fixed;
-        background-size: cover;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        position: relative; /* 确保 body 是相对定位 */
-    }
 
     .container {
         max-width: 1200px;

@@ -12,11 +12,11 @@
     }
 
     .navbar {
-        color: #ffffff;
+        color: #292929;
         justify-content: center;
         align-items: center;
         display: flex;
-        background: rgb(78, 171, 255);
+        background:  #f1f3f5;
         height: 7vh;
     }
 
@@ -85,14 +85,15 @@
     }
     .form {
         margin-top: 35px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 设置阴影效果 */
+        /*边框*/
+        border: 1px solid #e0e2eb;
         display: flex;
         flex-direction: column;
         gap: 10px;
         background-color: #ffffff;
         padding: 30px;
         width: 450px;
-        border-radius: 20px;
+        border-radius: 2px;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 

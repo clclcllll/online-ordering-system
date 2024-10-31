@@ -12,8 +12,8 @@
     }
 
     .footer {
-        color: #ffffff;
-        background: rgb(78, 171, 255);
+        color: #292929;
+        background: rgba(224, 226, 235, 0);
         display: flex;
         justify-content: center; /* 水平居中 */
         align-items: center;     /* 垂直居中 */

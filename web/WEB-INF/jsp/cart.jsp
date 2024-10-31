@@ -63,7 +63,7 @@
         display: inline-block;
         padding: 5px 10px;
         margin: 5px;
-        background-color: #007BFF;
+        background-color: #000000;
         color: white;
         text-decoration: none;
         border-radius: 5px;
@@ -72,8 +72,9 @@
     }
 
     .cart-container a:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+
+        background: #535353;
+
     }
 
     .cart-container a:active {
@@ -84,7 +85,7 @@
     .cart-container input[type="submit"] {
         width: 100%;
         padding: 10px;
-        background-color: #007BFF;
+        background-color: #000000;
         color: white;
         border: none;
         border-radius: 5px;
@@ -93,7 +94,7 @@
     }
 
     .cart-container input[type="submit"]:hover {
-        background-color: #0056b3;
+        background-color: #535353;
     }
 
     .footer {
