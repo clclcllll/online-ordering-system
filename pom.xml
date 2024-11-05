@@ -9,6 +9,19 @@
     <version>1.0-SNAPSHOT</version>
     <dependencies>
 
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.12.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.11</version>
+        </dependency>
+
+
         <!-- Gson 库 -->
         <dependency>
             <groupId>com.alibaba</groupId>

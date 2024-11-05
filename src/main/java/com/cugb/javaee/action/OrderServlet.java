@@ -2,8 +2,10 @@ package com.cugb.javaee.action;
 
 import com.cugb.javaee.bean.*;
 import com.cugb.javaee.biz.OrderService;
+import com.cugb.javaee.consumer.UserMessageConsumer;
 import com.cugb.javaee.utils.AlipayPaymentUtil;
 import com.cugb.javaee.utils.Constants;
+import com.cugb.javaee.producer.UserMessageProducer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,7 @@ import java.util.*;
 public class OrderServlet extends HttpServlet {
 
     private OrderService orderService = new OrderService();
+    private UserMessageConsumer userMessageConsumer = new UserMessageConsumer();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -93,6 +96,13 @@ public class OrderServlet extends HttpServlet {
         if (orderID > 0) {
             // 清空购物车
             cart.clear();
+
+            // 发送消息到 RabbitMQ
+            UserBean userBean = new UserBean();
+            userBean.setUserID(user.getUserID());
+            userBean.setUsername(user.getUsername());
+            userMessageConsumer.sendMessage(userBean, "您的订单已创建，订单号：" + orderID);
+
             // 重定向到支付页面
             response.sendRedirect(request.getContextPath() + "/order?action=pay&orderID=" + orderID);
 
