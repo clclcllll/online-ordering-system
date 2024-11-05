@@ -1,8 +1,11 @@
 package com.cugb.javaee.action;
 
 import com.cugb.javaee.bean.*;
+import com.cugb.javaee.biz.DishService;
 import com.cugb.javaee.biz.OrderService;
 import com.cugb.javaee.consumer.UserMessageConsumer;
+import com.cugb.javaee.dao.DishDAO;
+import com.cugb.javaee.producer.UserMessageProducerImpl;
 import com.cugb.javaee.utils.AlipayPaymentUtil;
 import com.cugb.javaee.utils.Constants;
 import com.cugb.javaee.producer.UserMessageProducer;
@@ -20,8 +23,8 @@ import java.util.*;
 public class OrderServlet extends HttpServlet {
 
     private OrderService orderService = new OrderService();
-    private UserMessageConsumer userMessageConsumer = new UserMessageConsumer();
-
+    private DishService DishService = new DishService();
+    private DishDAO dishDAO = new DishDAO();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -97,20 +100,70 @@ public class OrderServlet extends HttpServlet {
             // 清空购物车
             cart.clear();
 
-            // 发送消息到 RabbitMQ
-            UserBean userBean = new UserBean();
-            userBean.setUserID(user.getUserID());
-            userBean.setUsername(user.getUsername());
-            userMessageConsumer.sendMessage(userBean, "您的订单已创建，订单号：" + orderID);
-
             // 重定向到支付页面
             response.sendRedirect(request.getContextPath() + "/order?action=pay&orderID=" + orderID);
 
+            // 更新菜品信息
+            boolean allStocksChecked = true; // 标记所有库存是否都已检查通过
+            for (OrderItemBean orderItem : orderItems) {
+                DishBean dish = orderItem.getDish();
+                if (dish != null) {
+                    int dishID = dish.getDishID();
+                    int quantity = orderItem.getQuantity();
+
+                    // 检查库存
+                    boolean result = orderService.checkStock(dishID, quantity);
+                    if (!result) {
+                        // 库存不足，标记为失败
+                        allStocksChecked = false;
+                        break; // 退出循环
+                    }
+                } else {
+                    // 处理 dish 为 null 的情况
+                    System.out.println("Dish is null");
+                }
+            }
+
+            if (!allStocksChecked) {
+                // 库存不足，回滚订单
+                orderService.deleteOrder(orderID);
+                request.setAttribute("errorMsg", "下单失败，库存不足");
+                request.getRequestDispatcher("/cart?action=view").forward(request, response);
+                return; // 退出方法
+            }
+
+            // 所有库存检查通过，更新库存
+            for (OrderItemBean orderItem : orderItems) {
+                int dishID = orderItem.getDishID();
+                int quantity = orderItem.getQuantity();
+                DishBean dishBean = DishService.getDishByID(dishID);
+                dishBean.setStock(dishBean.getStock() - quantity);
+
+                // 检查库存是否为零
+                if (dishBean.getStock() == 0) {
+                    // 发送菜品售罄的消息
+                    sendSoldOutMessage(dishBean);
+                }
+
+                DishService.updateDish(dishBean);
+            }
         } else {
             request.setAttribute("errorMsg", "下单失败");
             request.getRequestDispatcher("/cart?action=view").forward(request, response);
         }
     }
+
+    // 发送菜品售罄的消息
+    private void sendSoldOutMessage(DishBean dishBean) {
+        UserMessageProducer userMessageProducer = new UserMessageProducerImpl("localhost", "sold_out_queue");
+        try {
+            userMessageProducer.sendMessage(dishBean, "菜品 " + dishBean.getName() + " 已售罄");
+            System.out.println("Sent sold out message for dish: " + dishBean.getName());
+        } finally {
+            userMessageProducer.close();
+        }
+    }
+
 
     /**
      * 支付订单

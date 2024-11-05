@@ -4,7 +4,7 @@ import com.cugb.javaee.bean.OrderBean;
 import com.cugb.javaee.bean.OrderItemBean;
 import com.cugb.javaee.dao.OrderDAO;
 import com.cugb.javaee.dao.OrderItemDAO;
-
+import com.cugb.javaee.dao.DishDAO;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class OrderService {
 
     private OrderDAO orderDAO = new OrderDAO();
     private OrderItemDAO orderItemDAO = new OrderItemDAO();
-
+    private DishDAO DishDAO = new DishDAO();
     /**
      * 创建新订单
      * @param order 订单对象（不包含订单ID）
@@ -110,4 +110,14 @@ public class OrderService {
         int result = orderDAO.deleteOrder(orderID);
         return result == 1;
     }
+
+
+    public boolean checkStock(int dishID, int quantity) {
+        int availableStock = DishDAO.getDishCountByID(dishID);
+
+        // 检查库存是否足够
+        return availableStock >= quantity;
+    }
+
+
 }

@@ -89,4 +89,16 @@ public class DishDAO {
         String sql = "SELECT COUNT(*) FROM Dish";
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
+
+    /**
+     * 根据菜品ID获取菜品库存
+     * @param dishID 菜品ID
+     * @return 菜品库存
+     */
+    public int getDishCountByID(int dishID) {
+        String sql = "SELECT Stock FROM Dish WHERE DishID = ?";
+
+            return jdbcTemplate.queryForObject(sql, new Object[]{dishID}, Integer.class);
+    }
+
 }

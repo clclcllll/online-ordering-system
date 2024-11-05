@@ -8,10 +8,10 @@ import com.cugb.javaee.bean.UserBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserMessageProducer {
+public abstract class UserMessageProducer {
 
     private static final Logger logger = LoggerFactory.getLogger(UserMessageProducer.class);
-    private final static String QUEUE_NAME = "test";
+    private final static String QUEUE_NAME = "sold_out_queue";
 
     public void sendMessage(UserBean user, String message) {
         ConnectionFactory factory = new ConnectionFactory();
@@ -31,5 +31,9 @@ public class UserMessageProducer {
             logger.error("Failed to send message to queue", e);
         }
     }
+
+    public abstract void sendMessage(Object message, String content);
+
+    public abstract void close();
 }
 
