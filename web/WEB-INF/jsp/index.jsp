@@ -151,11 +151,11 @@
 
     @font-face {
         font-family: 'icomoon';
-        src: url('/web/fonts/icomoon.eot'); /* 确保路径从项目根目录开始 */
-        src: url('/web/fonts/icomoon.eot?#iefix') format('embedded-opentype'),
-        url('/web/fonts/icomoon.woff') format('woff'),
-        url('/web/fonts/icomoon.ttf') format('truetype'),
-        url('/web/fonts/icomoon.svg#icomoon') format('svg');
+        src: url('/src/main/webapp/fonts/icomoon.eot'); /* 确保路径从项目根目录开始 */
+        src: url('/src/main/webapp/fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+        url('/src/main/webapp/fonts/icomoon.woff') format('woff'),
+        url('/src/main/webapp/fonts/icomoon.ttf') format('truetype'),
+        url('/src/main/webapp/fonts/icomoon.svg#icomoon') format('svg');
         font-weight: normal;
         font-style: normal;
     }
@@ -177,11 +177,11 @@
 
 <div class="focus">
     <ul style="left: 0px;">
-        <li><a href="#"><img src="image/1.jpg" alt="Slide 1"></a></li>
-        <li><a href="#"><img src="image/1.jpg" alt="Slide 2"></a></li>
-        <li><a href="#"><img src="image/1.jpg" alt="Slide 3"></a></li>
-        <li><a href="#"><img src="image/1.jpg" alt="Slide 4"></a></li>
-        <li><a href="#"><img src="image/1.jpg" alt="Slide 5"></a></li>
+        <li><a href="#"><img src="https://img2.baidu.com/it/u=1912640969,552058082&fm=253&fmt=auto&app=138&f=JPEG?w=658&h=451" alt="Slide 1"></a></li>
+        <li><a href="#"><img src="https://img2.baidu.com/it/u=481416470,1744258166&fm=253&fmt=auto?w=749&h=500" alt="Slide 2"></a></li>
+        <li><a href="#"><img src="https://img2.baidu.com/it/u=4216310193,1531943661&fm=253&fmt=auto&app=138&f=JPEG?w=749&h=500" alt="Slide 3"></a></li>
+        <li><a href="#"><img src="https://img0.baidu.com/it/u=1178441119,43429536&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500" alt="Slide 4"></a></li>
+        <li><a href="#"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage109.360doc.com%2FDownloadImg%2F2021%2F04%2F2013%2F220446837_9_20210420010925800&refer=http%3A%2F%2Fimage109.360doc.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1737030774&t=a83196a7885dae5890a11747a253e604" alt="Slide 5"></a></li>
     </ul>
     <!-- 左右切换按钮 -->
     <a href="#" class="prev"></a>

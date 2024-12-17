@@ -112,6 +112,14 @@
         margin: 0 5px;
         color: #333;
     }
+
+    .dish-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
 </style>
 
 <div class="container">
@@ -129,7 +137,7 @@
             <c:forEach var="dish" items="${dishes}">
                 <div class="dish-item">
                     <a href="${pageContext.request.contextPath}/dish?action=detail&dishID=${dish.dishID}">
-                        <img src="${pageContext.request.contextPath}/images/${dish.image}" alt="${dish.name}" width="200">
+                        <img src="${dish.image}" alt="${dish.name}" width="200" class="dishimage">
                     </a>
                     <h3>${dish.name}</h3>
                     <p>价格：￥${dish.price}</p>

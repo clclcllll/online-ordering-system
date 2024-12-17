@@ -102,19 +102,19 @@
             <table>
                 <tr>
                     <td>用户名：</td>
-                    <td><input type="text" name="username" required></td>
+                    <td><input type="text" name="username" placeholder="请输入英文或数字" required></td>
                 </tr>
                 <tr>
                     <td>密码：</td>
-                    <td><input type="password" name="password" required></td>
+                    <td><input type="password" name="password" placeholder="请输入不小于6位的英文或数字" required></td>
                 </tr>
                 <tr>
                     <td>确认密码：</td>
-                    <td><input type="password" name="confirmPassword" required></td>
+                    <td><input type="password" name="confirmPassword" placeholder="请确认密码" required></td>
                 </tr>
                 <tr>
                     <td>邮箱：</td>
-                    <td><input type="email" name="email" required></td>
+                    <td><input type="email" name="email" placeholder="请输入真实邮箱" required></td>
                 </tr>
                 <tr>
                     <td colspan="2">

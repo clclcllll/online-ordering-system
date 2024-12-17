@@ -84,19 +84,17 @@
     }
 </style>
 
-<h2>菜品详情</h2>
+<h2 style="text-align: center">菜品详情</h2>
 
 <c:if test="${not empty dish}">
     <div class="dish-detail">
-        <img src="${pageContext.request.contextPath}/images/${dish.image}" alt="${dish.name}" width="300">
+        <img src="${dish.image}" alt="${dish.name}" width="300">
         <h3>${dish.name}</h3>
         <div class="dish-info">
-            <div>
+            <div style="text-align: left;">
                 <p>价格：￥${dish.price}</p>
-                <p>库存：${dish.stock}</p> <br /><br />
-            </div>
-            <div class="dish-description">
-                <p>${dish.description}</p>
+                <p>库存：${dish.stock}</p>
+                <p>简介：${dish.description}</p><br /><br />
             </div>
         </div>
         <form action="${pageContext.request.contextPath}/cart" method="get">
