@@ -2,6 +2,9 @@ package com.cugb.javaee.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -13,6 +16,8 @@ import java.sql.SQLException;
 public class DBUtil {
     private static DruidDataSource dataSource;
     private static JdbcTemplate jdbcTemplate;
+    private static PlatformTransactionManager transactionManager;
+    private static TransactionTemplate transactionTemplate;
 
     static {
         try {
@@ -30,10 +35,26 @@ public class DBUtil {
 
             // 创建 JdbcTemplate 对象
             jdbcTemplate = new JdbcTemplate(dataSource);
+
+            // 初始化事务管理器
+            transactionManager = new DataSourceTransactionManager(dataSource);
+
+            // 创建 TransactionTemplate 对象
+            transactionTemplate = new TransactionTemplate(transactionManager);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    /**
+     * 获取 TransactionTemplate 对象
+     * @return TransactionTemplate
+     */
+    public static TransactionTemplate getTransactionTemplate() {
+        return transactionTemplate;
+    }
+
 
     /**
      * 获取 JdbcTemplate 对象
@@ -65,5 +86,6 @@ public class DBUtil {
             }
         }
     }
+
 
 }
