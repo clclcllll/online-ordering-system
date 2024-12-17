@@ -76,4 +76,26 @@ public class DishService {
         int result = dishDAO.deleteDish(dishID);
         return result == 1;
     }
+
+
+    /**
+     * 根据菜名进行模糊搜索，支持分页
+     * @param keyword 搜索关键词
+     * @param pageNum 当前页码，从 1 开始
+     * @param pageSize 每页显示的记录数
+     * @return 搜索结果列表
+     */
+    public List<DishBean> searchDishesByName(String keyword, int pageNum, int pageSize) {
+        return dishDAO.searchDishesByName(keyword, pageNum, pageSize);
+    }
+
+    /**
+     * 获取搜索结果的总数
+     * @param keyword 搜索关键词
+     * @return 搜索结果总数
+     */
+    public int getSearchDishCount(String keyword) {
+        return dishDAO.getSearchDishCount(keyword);
+    }
+
 }

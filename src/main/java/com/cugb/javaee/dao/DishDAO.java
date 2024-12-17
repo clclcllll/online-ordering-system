@@ -101,4 +101,29 @@ public class DishDAO {
             return jdbcTemplate.queryForObject(sql, new Object[]{dishID}, Integer.class);
     }
 
+    /**
+     * 根据菜名进行模糊搜索，支持分页
+     * @param keyword 搜索关键词
+     * @param pageNum 当前页码，从 1 开始
+     * @param pageSize 每页显示的记录数
+     * @return 搜索结果列表
+     */
+    public List<DishBean> searchDishesByName(String keyword, int pageNum, int pageSize) {
+        String sql = "SELECT * FROM Dish WHERE Name LIKE ? LIMIT ? OFFSET ?";
+        String searchPattern = "%" + keyword + "%";
+        int offset = (pageNum - 1) * pageSize;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(DishBean.class), searchPattern, pageSize, offset);
+    }
+
+    /**
+     * 获取搜索结果的总数
+     * @param keyword 搜索关键词
+     * @return 搜索结果总数
+     */
+    public int getSearchDishCount(String keyword) {
+        String sql = "SELECT COUNT(*) FROM Dish WHERE Name LIKE ?";
+        String searchPattern = "%" + keyword + "%";
+        return jdbcTemplate.queryForObject(sql, new Object[]{searchPattern}, Integer.class);
+    }
+
 }
