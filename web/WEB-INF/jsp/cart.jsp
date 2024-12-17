@@ -1,126 +1,149 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zhangsir
-  Date: 2024/10/22
-  Time: 14:32
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <style>
-    hr {
-        margin: 10px 0;
+    body {
+        background: #ffffff;
+        color: #333;
+        font-family: 'Arial', sans-serif;
     }
 
     .content {
-        flex: 1;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        min-height: calc(100vh - 100px);
     }
 
     .cart-container {
-        background: rgba(255, 255, 255, 0.8);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        max-width: 800px;
+        background: #ffffff;
+        padding: 10px;
+        border-radius: 8px;
+        max-width: 900px;
         width: 100%;
     }
 
     .cart-container h2 {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        font-size: 28px;
+        color: #000;
+        text-align: center;
+        font-weight: 600;
     }
 
-    .cart-container table {
+    .cart-table {
         width: 100%;
-        border-collapse: collapse;
-        margin: 0 auto;
+        border-collapse: separate;
+        border-spacing: 0 10px;
     }
 
-    .cart-container th, .cart-container td {
-        padding: 10px;
-        border: 1px solid #ddd;
+    .cart-table th {
+        background-color: #f0f0f0;
+        color: #333;
+        font-weight: 600;
+        padding: 15px;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+    }
+
+    .cart-table td {
+        background-color: #fff;
+        padding: 15px;
+        vertical-align: middle;
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .cart-table tr td:first-child {
+        border-left: 1px solid #e0e0e0;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .cart-table tr td:last-child {
+        border-right: 1px solid #e0e0e0;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .cart-table input[type="number"] {
+        width: 60px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
         text-align: center;
     }
 
-    .cart-container th {
-        background-color: #f8f8f8;
-        font-weight: bold;
-    }
-
-    .cart-container input[type="number"] {
-        width: 50px;
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .cart-container a {
+    .btn {
         display: inline-block;
-        padding: 5px 10px;
-        margin: 5px;
-        background-color: #000000;
-        color: white;
+        padding: 10px 20px;
+        background-color: #000;
+        color: #fff;
         text-decoration: none;
         border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .cart-container a:hover {
-
-        background: #535353;
-
-    }
-
-    .cart-container a:active {
-        transform: translateY(2px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .cart-container input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        background-color: #000000;
-        color: white;
+        transition: all 0.3s ease;
         border: none;
-        border-radius: 5px;
         cursor: pointer;
-        margin-top: 20px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    .cart-container input[type="submit"]:hover {
-        background-color: #535353;
+    .btn:hover {
+        background-color: #333;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-remove {
+        background-color: #ff4444;
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+
+    .btn-remove:hover {
+        background-color: #cc0000;
+    }
+
+    .cart-summary {
+        margin-top: 30px;
+        text-align: right;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .cart-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 40px 0;
+        font-size: 18px;
+        color: #666;
     }
 
     .footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 10px;
-        text-align: center; /* 确保文本居中 */
-        z-index: 1000; /* 确保脚注在背景图片之上 */
-        color: #333; /* 深灰色文字 */
-    }
-
-    .footer p {
-        margin: 0; /* 移除默认的段落间距 */
+        background: #000;
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+        font-size: 14px;
     }
 </style>
 
 <div class="content">
     <div class="cart-container">
-        <h2>我的购物车</h2>
+        <h3>我的购物车</h3>
 
         <c:if test="${cart != null && not empty cart}">
             <form action="${pageContext.request.contextPath}/cart?action=update" method="post">
-                <table border="1" cellpadding="5" cellspacing="0">
+                <table class="cart-table">
+                    <thead>
                     <tr>
                         <th>菜品名称</th>
                         <th>价格</th>
@@ -128,6 +151,8 @@
                         <th>小计</th>
                         <th>操作</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <c:forEach var="item" items="${cart.values()}">
                         <tr>
                             <td>${item.dish.name}</td>
@@ -137,23 +162,31 @@
                             </td>
                             <td>￥${item.dish.price * item.quantity}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/cart?action=remove&dishID=${item.dish.dishID}">移除</a>
+                                <a href="${pageContext.request.contextPath}/cart?action=remove&dishID=${item.dish.dishID}" class="btn btn-remove">移除</a>
                             </td>
                         </tr>
                     </c:forEach>
-                    <tr>
-                        <td colspan="3">总金额：</td>
-                        <td colspan="2">￥${totalAmount}</td>
-                    </tr>
+                    </tbody>
                 </table>
-                <input type="submit" value="更新购物车">
-                <a href="${pageContext.request.contextPath}/order?action=create">去结算</a>
+
+                <div class="cart-summary">
+                    总金额：￥${totalAmount}
+                </div>
+
+                <div class="cart-actions">
+                    <input type="submit" value="更新购物车" class="btn">
+                    <a href="${pageContext.request.contextPath}/order?action=create" class="btn">去结算</a>
+                </div>
             </form>
         </c:if>
         <c:if test="${cart == null || empty cart}">
-            <p>您的购物车为空。</p>
+            <div class="empty-cart">
+                <p>您的购物车为空。</p>
+                <a href="${pageContext.request.contextPath}/dish?action=list" class="btn">继续购物</a>
+            </div>
         </c:if>
     </div>
 </div>
 
 <%@ include file="footer.jsp" %>
+

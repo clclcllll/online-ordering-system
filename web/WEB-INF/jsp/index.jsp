@@ -412,7 +412,7 @@
         <div class="review-item">
             <div class="review-avatar" style="background-image: url('https://api.dicebear.com/9.x/glass/svg?seed=zcl');"></div>
             <div class="review-content">
-                <p class="review-text">+3</p>
+                <p class="review-text">广东彭于晏觉得不错</p>
                 <p class="reviewer">— 章成林</p>
             </div>
         </div>
@@ -433,7 +433,7 @@
         <div class="review-item">
             <div class="review-avatar" style="background-image: url('https://api.dicebear.com/9.x/glass/svg?seed=cyh');"></div>
             <div class="review-content">
-                <p class="review-text">你看这个面它又长又宽,就像这个碗它又大又圆</p>
+                <p class="review-text">你看这个面它又长又宽~~ 就像这个碗它又大又圆~~</p>
                 <p class="reviewer">— 谌一航</p>
             </div>
         </div>

@@ -1,137 +1,329 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>用户注册</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('${pageContext.request.contextPath}/images/background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative; /* 确保 body 是相对定位 */
-        }
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* 至少占据视口的高度 */
+        margin: 0; /* 移除默认的边距 */
+    }
 
-        .content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .navbar {
+        color: #292929;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        background:  #f1f3f5;
+        height: 7vh;
+    }
 
-        .register-container {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
+    .name {
+        font-size: 30px;
+        font-family: "华文中宋", STSong;
+    }
 
-        .register-container h2 {
-            margin-bottom: 20px;
-        }
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .register-container .alert {
-            margin-bottom: 20px;
-        }
+    .login-container {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+    }
 
-        .register-container table {
-            margin: 0 auto;
-        }
+    .login-container h2 {
+        margin-bottom: 20px;
+    }
 
-        .register-container input[type="text"],
-        .register-container input[type="password"],
-        .register-container input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .login-container .alert {
+        margin-bottom: 20px;
+    }
 
-        .register-container input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .login-container table {
+        margin: 0 auto;
+    }
 
-        .register-container input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
-        .register-container a {
-            display: block;
-            margin-top: 10px;
-            text-decoration: none;
-            color: #007BFF;
-        }
+    .login-container input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-        .footer {
-            color: #ffffff;
-            background: rgb(78, 171, 255);
-            display: flex;
-            justify-content: center; /* 水平居中 */
-            align-items: center;     /* 垂直居中 */
-            height: 60px;            /* 固定高度，可以根据需要调整 */
-        }
-    </style>
-</head>
-<body>
+    .login-container input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .login-container a {
+        display: block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #007BFF;
+    }
+    .form {
+        margin-top: 35px;
+        /*边框*/
+        border: 1px solid #e0e2eb;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #ffffff;
+        padding: 30px;
+        width: 450px;
+        border-radius: 2px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    ::placeholder {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    .form button {
+        align-self: flex-end;
+    }
+
+    .flex-column > label {
+        color: #151717;
+        font-weight: 600;
+    }
+
+    .inputForm {
+        border: 1.5px solid #ecedec;
+        border-radius: 10px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        transition: 0.2s ease-in-out;
+    }
+
+    .input {
+        margin-left: 10px;
+        border-radius: 10px;
+        border: none;
+        width: 100%;
+        height: 100%;
+    }
+
+    .input:focus {
+        outline: none;
+    }
+
+    .inputForm:focus-within {
+        border: 1.5px solid #2d79f3;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .flex-row > div > label {
+        font-size: 14px;
+        color: black;
+        font-weight: 400;
+    }
+
+    .span {
+        font-size: 14px;
+        margin-left: 5px;
+        color: #2d79f3;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .button-submit {
+        margin: 20px 0 10px 0;
+        background-color: #151717;
+        border: none;
+        color: white;
+        font-size: 15px;
+        font-weight: 500;
+        border-radius: 10px;
+        height: 50px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .p {
+        text-align: center;
+        color: black;
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    .btn {
+        margin-top: 10px;
+        width: 100%;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        gap: 10px;
+        border: 1px solid #ededef;
+        background-color: white;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+        border: 1px solid #2d79f3;
+    ;
+    }
+
+    .remember-password {
+        display: flex;
+        align-items: center; /* 垂直居中对齐 */
+    }
+
+    .remember-password label {
+        margin-left: 5px; /* 控制标签与单选按钮之间的间距 */
+    }
+</style>
+
+<div class="navbar">
+    <div class="name">网上订餐系统</div>
+</div>
+
 <div class="content">
-    <div class="register-container">
-        <h2>用户注册</h2>
+    <form class="form" action="${pageContext.request.contextPath}/register" method="post">
 
+        <!-- 显示错误消息 -->
         <c:if test="${not empty errorMsg}">
-            <div class="alert alert-danger">${errorMsg}</div>
+            <div class="alert" style="color: red">${errorMsg}</div>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/register" method="post">
-            <table>
-                <tr>
-                    <td>用户名：</td>
-                    <td><input type="text" name="username" placeholder="请输入英文或数字" required></td>
-                </tr>
-                <tr>
-                    <td>密码：</td>
-                    <td><input type="password" name="password" placeholder="请输入不小于6位的英文或数字" required></td>
-                </tr>
-                <tr>
-                    <td>确认密码：</td>
-                    <td><input type="password" name="confirmPassword" placeholder="请确认密码" required></td>
-                </tr>
-                <tr>
-                    <td>邮箱：</td>
-                    <td><input type="email" name="email" placeholder="请输入真实邮箱" required></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="注册">
-                        <a href="${pageContext.request.contextPath}/login">已有账号？登录</a>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
+        <div class="flex-column">
+            <label for="username">用户名</label>
+        </div>
+        <div class="inputForm">
+            <!-- 您可以根据需要添加 SVG 图标 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 32 32" height="20">
+                <g data-name="Layer 3" id="Layer_3">
+                    <path d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"></path>
+                </g>
+            </svg>
+            <input placeholder="请输入英文或数字" class="input" type="text" name="username" id="username" required>
+        </div>
+
+        <div class="flex-column">
+            <label for="password">密码</label>
+        </div>
+        <div class="inputForm">
+            <!-- 您可以根据需要添加 SVG 图标 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="-64 0 512 512" height="20">
+                <path d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"></path>
+                <path d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"></path>
+            </svg>
+            <input placeholder="请输入不小于6位的英文或数字" class="input" type="password" name="password" id="password" required>
+        </div>
+
+        <div class="flex-column">
+            <label for="confirmPassword">确认密码</label>
+        </div>
+        <div class="inputForm">
+            <!-- 您可以根据需要添加 SVG 图标 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="-64 0 512 512" height="20">
+                <!-- 您可以使用与密码相同的 SVG 图标 -->
+                <path d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"></path>
+                <path d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"></path>
+            </svg>
+            <input placeholder="请确认密码" class="input" type="password" name="confirmPassword" id="confirmPassword" required>
+        </div>
+
+        <div class="flex-column">
+            <label for="email">邮箱</label>
+        </div>
+        <div class="inputForm">
+            <!-- 您可以根据需要添加 SVG 图标 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 512 512" height="20">
+                <path d="M502.3 190.8l-192-160c-15.8-13.2-39.5-13.2-55.3 0l-192 160C16.8 202 0 228.7 0 259.7v192.6c0 31 16.8 57.7 42.7 68.9l192 160c15.8 13.2 39.5 13.2 55.3 0l192-160c25.9-11.2 42.7-37.9 42.7-68.9V259.7c0-31-16.8-57.7-42.7-68.9zM256 368c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80zm176-192h-352l176-146.7 176 146.7z"></path>
+            </svg>
+            <input placeholder="请输入真实邮箱" class="input" type="email" name="email" id="email" required>
+        </div>
+
+        <div class="flex-row">
+            <div class="remember-password">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">我同意 <span class="span" onclick="window.location.href='${pageContext.request.contextPath}/terms'">服务条款</span></label>
+            </div>
+        </div>
+
+        <button class="button-submit" type="submit">注册</button>
+        <a href="${pageContext.request.contextPath}/login">已有账号？登录</a>
+
+        <p class="p line">或者使用以下方式登录</p>
+
+        <div class="flex-row">
+            <button class="btn google">
+                <!-- Google SVG 图标 -->
+                <svg xml:space="preserve" style="enable-background:new 0 0 512 512;" viewBox="0 0 512 512" y="0px" x="0px"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" id="Layer_1" width="20"
+                     version="1.1">
+                    <path d="M113.47,309.408L95.648,375.94l-65.139,1.378C11.042,341.211,0,299.9,0,256
+                        c0-42.451,10.324-82.483,28.624-117.732h0.014l57.992,10.632l25.404,57.644c-5.317,15.501-8.215,32.141-8.215,49.456
+                        C103.821,274.792,107.225,292.797,113.47,309.408z" style="fill:#FBBB00;"></path>
+                    <path d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451
+                        c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535
+                        c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"
+                          style="fill:#518EF8;"></path>
+                    <path d="M416.253,455.624l0.014,0.014C372.396,490.901,316.666,512,256,512
+                        c-97.491,0-182.252-54.491-225.491-134.681l82.961-67.91c21.619,57.698,77.278,98.771,142.53,98.771
+                        c28.047,0,54.323-7.582,76.87-20.818L416.253,455.624z" style="fill:#28B446;"></path>
+                    <path d="M419.404,58.936l-82.933,67.896c-23.335-14.586-50.919-23.012-80.471-23.012
+                        c-66.729,0-123.429,42.957-143.965,102.724l-83.397-68.276h-0.014C71.23,56.123,157.06,0,256,0
+                        C318.115,0,375.068,22.126,419.404,58.936z" style="fill:#F14336;"></path>
+                </svg>
+                Google
+            </button>
+            <button class="btn apple">
+                <!-- Apple SVG 图标 -->
+                <svg xml:space="preserve" style="enable-background:new 0 0 22.773 22.773;" viewBox="0 0 22.773 22.773"
+                     y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+                     id="Capa_1" width="20" height="20" version="1.1">
+                    <g>
+                        <g>
+                            <path d="M15.769,0c0.053,0,0.106,0,0.162,0c0.13,1.606-0.483,2.806-1.228,3.675c-0.731,0.863-1.732,1.7-3.351,1.573
+                                c-0.108-1.583,0.506-2.694,1.25-3.561C13.292,0.879,14.557,0.16,15.769,0z"></path>
+                            <path d="M20.67,16.716c0,0.016,0,0.03,0,0.045c-0.455,1.378-1.104,2.559-1.896,3.655c-0.723,0.995-1.609,2.334-3.191,2.334
+                                c-1.367,0-2.275-0.879-3.676-0.903c-1.482-0.024-2.297,0.735-3.652,0.926c-0.155,0-0.31,0-0.462,0
+                                c-0.995-0.144-1.798-0.932-2.383-1.642c-1.725-2.098-3.058-4.808-3.306-8.276c0-0.34,0-0.679,0-1.019
+                                c0.105-2.482,1.311-4.5,2.914-5.478c0.846-0.52,2.009-0.963,3.304-0.765c0.555,0.086,1.122,0.276,1.619,0.464
+                                c0.471,0.181,1.06,0.502,1.618,0.485c0.378-0.011,0.754-0.208,1.135-0.347c1.116-0.403,2.21-0.865,3.652-0.648
+                                c1.733,0.262,2.963,1.032,3.723,2.22c-1.466,0.933-2.625,2.339-2.427,4.74C17.818,14.688,19.086,15.964,20.67,16.716z"></path>
+                        </g>
+                    </g>
+                </svg>
+                Apple
+            </button>
+        </div>
+    </form>
 </div>
-<footer class="footer">
-    <p>&copy; 2024 网上订餐系统. All rights reserved.</p>
-</footer>
-<!-- 引入 JavaScript -->
-<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/script.js"></script>
-</body>
-</html>
+
+
+<%@ include file="footer.jsp" %>

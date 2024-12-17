@@ -27,10 +27,8 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 设置请求和响应的字符编码
-        // 设置请求和响应的字符编码
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-
 
         // 获取请求参数
         String username = request.getParameter("username");
@@ -39,14 +37,30 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
 
         // 参数校验
-        if (!ValidationUtil.isValidUsername(username) ||
-                !ValidationUtil.isValidPassword(password) ||
-                !ValidationUtil.isValidEmail(email) ||
-                !password.equals(confirmPassword)) {
-            request.setAttribute("errorMsg", "输入的信息格式不正确或密码不一致");
+        if (!ValidationUtil.isValidUsername(username)) {
+            request.setAttribute("errorMsg", "用户名错误，请输入英文或数字");
             request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
             return;
         }
+
+        if (!ValidationUtil.isValidPassword(password)) {
+            request.setAttribute("errorMsg", "密码格式有误，请确保至少六位数密码");
+            request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            request.setAttribute("errorMsg", "密码不一致，请重新输入");
+            request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+            return;
+        }
+
+        if (!ValidationUtil.isValidEmail(email)) {
+            request.setAttribute("errorMsg", "邮箱格式错误");
+            request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+            return;
+        }
+
 
         // 创建用户对象
         UserBean user = new UserBean();
@@ -58,8 +72,10 @@ public class RegisterServlet extends HttpServlet {
         boolean result = userService.register(user);
 
         if (result) {
-            // 注册成功，重定向到登录页面
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            // 注册成功，设置成功消息并重定向到登录页面
+            HttpSession session = request.getSession();
+            session.setAttribute("successMsg", "注册成功，请登录。");
+            response.sendRedirect(request.getContextPath() + "/login");
         } else {
             // 注册失败，返回错误信息
             request.setAttribute("errorMsg", "注册失败，用户名可能已存在");

@@ -216,6 +216,22 @@
 
 <div class="content">
 <form class="form" action="${pageContext.request.contextPath}/login" method="post">
+    <!-- 显示错误消息 -->
+    <c:if test="${not empty errorMsg}">
+        <div class="alert">${errorMsg}</div>
+    </c:if>
+
+    <!-- 显示成功消息 -->
+    <c:if test="${not empty sessionScope.successMsg}">
+        <script>
+            alert("${sessionScope.successMsg}");
+            // 移除成功消息，防止刷新页面后重复显示
+            <%
+                session.removeAttribute("successMsg");
+            %>
+        </script>
+    </c:if>
+
     <div class="flex-column">
         <label>用户名 </label></div>
     <div class="inputForm">
