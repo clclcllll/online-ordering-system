@@ -274,7 +274,20 @@
             </div>
         </div>
 
+        <div class="flex-column">
+            <%--@declare id="captcha"--%><label for="captcha">验证码</label>
+        </div>
+        <div class="inputForm">
+            <!-- 显示验证码图片 -->
+            <img src="${pageContext.request.contextPath}/captcha" alt="验证码"
+                 onclick="this.src='${pageContext.request.contextPath}/captcha?'+Math.random()"
+                 style="cursor: pointer; margin-right: 10px;">
+            <input placeholder="请输入验证码" class="input" type="text" name="captchaInput" id="captchaInput" required>
+        </div>
+
+
         <button class="button-submit" type="submit">注册</button>
+
         <a href="${pageContext.request.contextPath}/login">已有账号？登录</a>
 
         <p class="p line">或者使用以下方式登录</p>

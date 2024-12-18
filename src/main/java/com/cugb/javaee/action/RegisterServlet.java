@@ -35,6 +35,15 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
         String email = request.getParameter("email");
+        String captchaInput = request.getParameter("captchaInput");
+
+        // 校验验证码
+        String captchaSession = (String) request.getSession().getAttribute("captcha");
+        if (captchaSession == null || !captchaSession.equalsIgnoreCase(captchaInput)) {
+            request.setAttribute("errorMsg", "验证码错误，请重新输入！");
+            request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+            return;
+        }
 
         // 参数校验
         if (!ValidationUtil.isValidUsername(username)) {
@@ -60,7 +69,6 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
             return;
         }
-
 
         // 创建用户对象
         UserBean user = new UserBean();

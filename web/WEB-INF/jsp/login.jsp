@@ -261,8 +261,11 @@
         <span class="span">忘记密码</span>
     </div>
 
+    <div class="flex-column">
+        <%--@declare id="captcha"--%><label for="captcha">验证码</label>
+    </div>
     <div class="inputForm">
-        <label>验证码：</label>
+        <label></label>
         <img src="${pageContext.request.contextPath}/captcha" alt="验证码" onclick="this.src='${pageContext.request.contextPath}/captcha?'+Math.random()" style="cursor: pointer;">
         <input type="text" name="captcha" placeholder="请输入验证码" required>
     </div>
