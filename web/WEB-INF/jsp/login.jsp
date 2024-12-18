@@ -218,7 +218,7 @@
 <form class="form" action="${pageContext.request.contextPath}/login" method="post">
     <!-- 显示错误消息 -->
     <c:if test="${not empty errorMsg}">
-        <div class="alert">${errorMsg}</div>
+        <div class="alert" style="color:red">${errorMsg}</div>
     </c:if>
 
     <!-- 显示成功消息 -->
@@ -260,6 +260,13 @@
         </div>
         <span class="span">忘记密码</span>
     </div>
+
+    <div class="inputForm">
+        <label>验证码：</label>
+        <img src="${pageContext.request.contextPath}/captcha" alt="验证码" onclick="this.src='${pageContext.request.contextPath}/captcha?'+Math.random()" style="cursor: pointer;">
+        <input type="text" name="captcha" placeholder="请输入验证码" required>
+    </div>
+
     <button class="button-submit" type="submit">登录</button>
     <p class="p">没有帐户? <span class="span" onclick="window.location.href='${pageContext.request.contextPath}/register'">注册</span>
 

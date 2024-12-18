@@ -426,7 +426,7 @@
         <div class="review-item">
             <div class="review-avatar" style="background-image: url('https://api.dicebear.com/9.x/glass/svg?seed=lcy');"></div>
             <div class="review-content">
-                <p class="review-text">很多人说我长的像Faker</p>
+                <p class="review-text">太豪赤了</p>
                 <p class="reviewer">— 刘纯源</p>
             </div>
         </div>

@@ -33,13 +33,28 @@ public class LoginServlet extends HttpServlet {
         // 获取请求参数
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String captcha = request.getParameter("captcha");
+
+        // 获取存储在 Session 中的验证码
+        HttpSession session = request.getSession();
+        String sessionCaptcha = (String) session.getAttribute("captcha");
+
+        // 验证验证码
+        if (captcha == null || sessionCaptcha == null || !captcha.equalsIgnoreCase(sessionCaptcha)) {
+            // 验证码错误
+            request.setAttribute("errorMsg", "验证码错误，请重试！");
+            request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+            return;
+        }
+
+        // 验证码校验通过后，可以移除 Session 中的验证码，防止重复使用
+        session.removeAttribute("captcha");
 
         // 调用业务逻辑层进行登录验证
         UserBean user = userService.login(username, password);
 
         if (user != null) {
             // 登录成功，保存用户信息到 Session
-            HttpSession session = request.getSession();
             session.setAttribute(Constants.SESSION_USER, user);
 
             // 重定向到首页
