@@ -3,11 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <style>
-    body {
-        background: #ffffff;
-        color: #333;
-        font-family: 'Arial', sans-serif;
-    }
 
     .content {
         display: flex;

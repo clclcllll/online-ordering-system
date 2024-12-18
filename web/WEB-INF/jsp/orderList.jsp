@@ -4,18 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
-
-    h2 {
-        text-align: center;
-        margin-top: 20px;
-    }
-
     .order-list {
         display: flex;
         flex-wrap: wrap;
