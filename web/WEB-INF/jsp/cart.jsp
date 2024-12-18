@@ -12,6 +12,7 @@
     }
 
     .cart-container {
+        text-align: center;       /* 文本居中 */
         background: #ffffff;
         padding: 10px;
         border-radius: 8px;
@@ -133,7 +134,6 @@
 
 <div class="content">
     <div class="cart-container">
-        <h3>我的购物车</h3>
 
         <c:if test="${cart != null && not empty cart}">
             <form action="${pageContext.request.contextPath}/cart?action=update" method="post">

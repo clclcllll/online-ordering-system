@@ -123,7 +123,6 @@
 </style>
 
 <div class="container">
-    <h2>菜品列表</h2>
 
     <!-- 判断是否有 successMsg 并弹出提示 -->
     <c:if test="${not empty successMsg}">

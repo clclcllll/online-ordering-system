@@ -4,53 +4,67 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: white;
+        margin: 0;
+        padding: 0;
+    }
 
     h2, h3 {
         text-align: center;
         margin-top: 20px;
+        font-size: 24px;
     }
 
     .order-container {
         background: white;
         border: 1px solid #ddd;
         border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         padding: 30px;
-        max-width: 900px; /* 增大宽度 */
-        margin: 40px auto; /* 增加上下边距 */
+        max-width: 1200px; /* 增加宽度 */
+        margin: 40px auto;
         text-align: left;
     }
 
     .order-container p {
-        margin: 10px 0; /* 增加行间距 */
+        margin: 15px 0;
+        font-size: 16px;
+        line-height: 1.6;
     }
 
     .order-container a {
         display: inline-block;
-        margin-top: 10px;
+        margin-top: 20px;
+        padding: 10px 20px;
         text-decoration: none;
-        color: #007BFF;
+        color: #fff;
+        background-color: #007BFF;
         font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
     }
 
     .order-container a:hover {
-        text-decoration: underline;
+        background-color: #0056b3;
     }
 
     .order-container hr {
         border: 0;
         border-top: 1px solid #eee;
-        margin: 20px 0; /* 增加边距 */
+        margin: 30px 0;
     }
 
     .order-table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
+        font-size: 16px;
     }
 
     .order-table th, .order-table td {
-        padding: 15px; /* 增加内边距 */
+        padding: 20px; /* 增加内边距 */
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
@@ -63,8 +77,28 @@
     .no-order {
         text-align: center;
         margin: 50px;
-        font-size: 18px;
+        font-size: 20px;
         color: #777;
+    }
+
+    /* PC端适配设计 */
+    @media (min-width: 1200px) {
+        body {
+            padding: 00px;
+        }
+
+        .order-container {
+            padding: 40px;
+        }
+
+        h2, h3 {
+            font-size: 28px;
+        }
+
+        .order-table th, .order-table td {
+            padding: 25px;
+            font-size: 18px;
+        }
     }
 </style>
 

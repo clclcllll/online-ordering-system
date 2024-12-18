@@ -55,9 +55,9 @@
         font-size: 18px;
         color: #777;
     }
+
 </style>
 
-<h2>我的订单列表</h2>
 
 <c:if test="${not empty orders}">
     <div class="order-list">
