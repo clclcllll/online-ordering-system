@@ -21,10 +21,12 @@
             height: 7vh;
         }
 
+        /* 原始导航栏样式 */
         .navbar a {
             margin-right: 10px;
             margin-left: 10px;
             width: 80px;
+            height: 26px;
             font-size: 18px;
             color: #292929;
             font-family: inherit;
@@ -43,10 +45,12 @@
             transition-property: color;
         }
 
+        /* 悬浮效果 */
         .navbar a:focus, .navbar a:hover {
             color: #292929;
         }
 
+        /* 普通的下划线悬浮效果 */
         .navbar a:after {
             content: "";
             pointer-events: none;
@@ -60,6 +64,30 @@
             transition-duration: 400ms;
             transition-property: width, left;
         }
+
+        .navbar a:hover:after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* 选中状态：继承原样式 + 下划线 */
+        .navbar a.active {
+            color: #292929; /* 保持原颜色 */
+            font-weight: 800; /* 保持加粗 */
+            position: relative; /* 确保下划线相对父元素定位 */
+        }
+
+        /* active 状态额外下划线 */
+        .navbar a.active:after {
+            content: "";
+            position: absolute;
+            bottom: -2px; /* 下划线位置 */
+            left: 0;
+            width: 100%; /* 全宽 */
+            height: 2px; /* 下划线高度 */
+            background-color: #292929; /* 下划线颜色与文字一致 */
+        }
+
 
         .name {
             font-size: 30px;
@@ -91,6 +119,11 @@
             font-size: 10px;
             text-align: center;
         }
+
+        .separator {
+            height: 17px;
+            width: 4.16px;
+        }
     </style>
 </head>
 <body>
@@ -103,10 +136,26 @@
 
     <div class="name">网上订餐系统</div>
     <span style="padding-right: 0.5vw">欢迎，${sessionScope.user.username}</span>
-    <a href="${pageContext.request.contextPath}/dish?action=index">首页</a> |
-    <a href="${pageContext.request.contextPath}/dish?action=list">菜品列表</a> |
-    <a href="${pageContext.request.contextPath}/cart?action=view">购物车</a> |
-    <a href="${pageContext.request.contextPath}/order?action=list">我的订单</a> |
+
+    <%
+        String uri = request.getRequestURI(); // 获取请求路径，如 /lcy/dish 或 /lcy/order
+        String action = request.getParameter("action");
+    %>
+
+
+    <a href="${pageContext.request.contextPath}/dish?action=index"
+       class="${param.action == 'index' ? 'active' : ''}">首页</a>
+    <span class="separator">|</span>
+    <a href="${pageContext.request.contextPath}/dish?action=list"
+       class="${param.action == 'list' && pageContext.request.requestURI.contains('/dish') ? 'active' : ''}">菜品列表</a>
+    <span class="separator">|</span>
+    <a href="${pageContext.request.contextPath}/cart?action=view"
+       class="${param.action == 'view' ? 'active' : ''}">购物车</a>
+    <span class="separator">|</span>
+    <a href="${pageContext.request.contextPath}/order?action=list"
+       class="${param.action == 'list' && pageContext.request.requestURI.contains('/order') ? 'active' : ''}">我的订单</a>
+
+
 
     <!-- 消息图标 -->
     <c:choose>
